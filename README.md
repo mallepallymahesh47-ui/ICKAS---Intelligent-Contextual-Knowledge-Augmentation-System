@@ -76,7 +76,7 @@ Ensure Qdrant is running locally (default port 6333) or update the connection in
 
 ## Screenshots
 ### Sample Q&A Output
-![Sample Query](images/output.png)
+![Sample Query](output.png)
 
 
 ## License
