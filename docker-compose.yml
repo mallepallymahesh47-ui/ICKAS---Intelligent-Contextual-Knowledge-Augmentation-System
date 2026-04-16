@@ -1,0 +1,44 @@
+version: '3.8'
+
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: ickas-qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - ./qdrant_storage:/qdrant/storage
+    networks:
+      - ickas-network
+
+  app:
+    build: .
+    container_name: ickas-app
+    ports:
+      - "8000:8000"
+      - "8501:8501"
+    environment:
+      - GROQ_API_KEY=${GROQ_API_KEY}
+      - LANGSMITH_API_KEY=${LANGSMITH_API_KEY}
+      - LANGSMITH_PROJECT=${LANGSMITH_PROJECT}
+      - HUGGINGFACEHUB_API_TOKEN=${HUGGINGFACEHUB_API_TOKEN}
+    volumes:
+      - ./Uploaded_files:/app/Uploaded_files
+    depends_on:
+      - qdrant
+    networks:
+      - ickas-network
+    command: >
+      sh -c "
+        uvicorn app:app --host 0.0.0.0 --port 8000 &
+        streamlit run Streamlit_UI.py --server.port 8501 --server.address 0.0.0.0 &
+        wait
+      "
+
+networks:
+  ickas-network:
+    driver: bridge
+
+volumes:
+  qdrant_data:
