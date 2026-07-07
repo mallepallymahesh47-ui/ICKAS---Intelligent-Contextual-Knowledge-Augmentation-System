@@ -43,25 +43,7 @@ LANGSMITH_PROJECT=your_project_name
 HUGGINGFACEHUB_API_TOKEN=your_huggingface_token
 ```
 
-Ensure Qdrant is running locally (default port 6333) or update the connection in `Qdrant.py` for a remote instance.
-
-## Usage
-
-1. **Start the FastAPI backend**:
-   ```bash
-   uvicorn app:app --reload --host 0.0.0.0 --port 8000
-   ```
-
-2. **Launch the Streamlit UI** (in a separate terminal):
-   ```bash
-   streamlit run Streamlit_UI.py
-   ```
-
-3. **Access the application**:
-   - Web UI: http://localhost:8501
-   - API Docs: http://localhost:8000/docs
-
-4. **Interact**:
+**Interact**:
    - Upload documents via the sidebar
    - Ask questions in the chat interface
    - Get context-aware answers from your documents
